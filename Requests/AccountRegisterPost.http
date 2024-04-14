@@ -1,0 +1,10 @@
+POST http://localhost:5000/account/register
+content-type: application/json
+
+{
+    "name": "test",
+    "surname": "test",
+    "email": "test@test.com",
+    "password": "password",
+    "passwordConfirm": ""
+}
