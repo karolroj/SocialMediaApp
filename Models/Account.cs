@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace SocialMediaApp.Models;
 
 public class Account
@@ -6,22 +8,22 @@ public class Account
     {
         if (string.IsNullOrEmpty(name))
         {
-            throw new ArgumentException($"'{nameof(name)}' cannot be empty.");
+            throw new ArgumentException($"'{nameof(name)}' cannot be null or empty.");
         }
 
         if (string.IsNullOrEmpty(surname))
         {
-            throw new ArgumentException($"'{nameof(surname)}' cannot be empty.");
+            throw new ArgumentException($"'{nameof(surname)}' cannot be null or empty.");
         }
 
         if (string.IsNullOrEmpty(email))
         {
-            throw new ArgumentException($"'{nameof(email)}' cannot be empty.");
+            throw new ArgumentException($"'{nameof(email)}' cannot be null or empty.");
         }
 
         if (string.IsNullOrEmpty(password))
         {
-            throw new ArgumentException($"'{nameof(password)}' cannot be empty.");
+            throw new ArgumentException($"'{nameof(password)}' cannot be null or empty.");
         }
 
         Name = name;
@@ -30,8 +32,13 @@ public class Account
         Password = password;
     }
 
-    public string Name { get; }
-    public string Surname { get; }
-    public string Email { get; }
-    public string Password { get; }
+    public int Id { get; set; }
+    [Required]
+    public string Name { get; set; }
+    [Required]
+    public string Surname { get; set; }
+    [Required]
+    public string Email { get; set; }
+    [Required]
+    public string Password { get; set; }
 }

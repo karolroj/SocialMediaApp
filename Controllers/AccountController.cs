@@ -8,7 +8,7 @@ namespace SocialMediaApp.Controllers;
 
 [Route("[controller]")]
 [ApiController]
-public class AccountController : ControllerBase 
+public class AccountController : ControllerBase
 {
     private readonly IAccountService _accountService;
     public AccountController(IAccountService accountService)
@@ -32,10 +32,15 @@ public class AccountController : ControllerBase
         }
         catch (Exception ex)
         {
-            if(ex is ValidationException || ex is ArgumentException)
+            if (ex is ValidationException || ex is ArgumentException)
+            {
                 return BadRequest(ex.Message);
+            }
             else
-                throw;
+            {
+                // log exception here
+                return BadRequest();
+            }
         }
     }
 }
