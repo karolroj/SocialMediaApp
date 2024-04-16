@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using SocialMediaApp.Models;
+using SocialMediaApp.Core.Models;
 
-namespace SocialMediaApp.Database;
+namespace SocialMediaApp.Core.Database;
 
 public class SocialMediaAppContext : DbContext
 {

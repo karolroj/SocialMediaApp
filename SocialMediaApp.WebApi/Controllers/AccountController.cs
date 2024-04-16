@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-using SocialMediaApp.Contracts;
-using SocialMediaApp.Interfaces;
-using SocialMediaApp.Models;
+using SocialMediaApp.Core.Contracts;
+using SocialMediaApp.Core.Interfaces;
+using SocialMediaApp.Core.Models;
 
-namespace SocialMediaApp.Controllers;
+namespace SocialMediaApp.WebApi.Controllers;
 
 [Route("[controller]")]
 [ApiController]

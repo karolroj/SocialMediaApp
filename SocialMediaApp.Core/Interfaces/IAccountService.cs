@@ -1,6 +1,6 @@
-using SocialMediaApp.Models;
+using SocialMediaApp.Core.Models;
 
-namespace SocialMediaApp.Interfaces;
+namespace SocialMediaApp.Core.Interfaces;
 
 public interface IAccountService
 {

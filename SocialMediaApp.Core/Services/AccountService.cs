@@ -1,9 +1,9 @@
-using SocialMediaApp.Database;
-using SocialMediaApp.Interfaces;
-using SocialMediaApp.Models;
-using SocialMediaApp.Repositories;
+using SocialMediaApp.Core.Database;
+using SocialMediaApp.Core.Interfaces;
+using SocialMediaApp.Core.Models;
+using SocialMediaApp.Core.Repositories;
 
-namespace SocialMediaApp.Services;
+namespace SocialMediaApp.Core.Services;
 
 public class AccountService : IAccountService
 {

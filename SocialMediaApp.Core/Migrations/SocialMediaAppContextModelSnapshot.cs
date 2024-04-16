@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using SocialMediaApp.Database;
+using SocialMediaApp.Core.Database;
 
 #nullable disable
 
-namespace SocialMediaApp.Migrations
+namespace SocialMediaApp.Core.Migrations
 {
     [DbContext(typeof(SocialMediaAppContext))]
     partial class SocialMediaAppContextModelSnapshot : ModelSnapshot
@@ -21,7 +21,7 @@ namespace SocialMediaApp.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("SocialMediaApp.Models.Account", b =>
+            modelBuilder.Entity("SocialMediaApp.Core.Models.Account", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

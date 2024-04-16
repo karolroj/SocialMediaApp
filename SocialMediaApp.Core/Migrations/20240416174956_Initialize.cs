@@ -3,10 +3,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace SocialMediaApp.Migrations
+namespace SocialMediaApp.Core.Migrations
 {
     /// <inheritdoc />
-    public partial class AddAccountTable : Migration
+    public partial class Initialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

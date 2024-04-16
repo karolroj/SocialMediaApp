@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using SocialMediaApp.Database;
+using SocialMediaApp.Core.Database;
 
-namespace SocialMediaApp.Repositories;
+namespace SocialMediaApp.Core.Repositories;
 public class GenericRepository<TEntity> where TEntity : class
 {
     internal SocialMediaAppContext context;

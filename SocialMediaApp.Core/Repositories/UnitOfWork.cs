@@ -1,7 +1,7 @@
-using SocialMediaApp.Database;
-using SocialMediaApp.Models;
+using SocialMediaApp.Core.Database;
+using SocialMediaApp.Core.Models;
 
-namespace SocialMediaApp.Repositories;
+namespace SocialMediaApp.Core.Repositories;
 public class UnitOfWork : IDisposable
 {
     private SocialMediaAppContext context = new SocialMediaAppContext();
