@@ -4,7 +4,7 @@ namespace SocialMediaApp.Core.Models;
 
 public class Account
 {
-    public Account(string name, string surname, string email, string password)
+    public Account(string name, string surname, string email, string password, byte[] salt)
     {
         if (string.IsNullOrEmpty(name))
         {
@@ -30,6 +30,7 @@ public class Account
         Surname = surname;
         Email = email;
         Password = password;
+        Salt = salt;
     }
 
     public int Id { get; set; }
@@ -41,4 +42,6 @@ public class Account
     public string Email { get; set; }
     [Required]
     public string Password { get; set; }
+    [Required]
+    public byte[] Salt { get; set; }
 }

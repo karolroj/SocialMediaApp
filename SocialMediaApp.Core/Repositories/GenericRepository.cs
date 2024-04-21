@@ -14,7 +14,12 @@ public class GenericRepository<TEntity> where TEntity : class
         dbSet = context.Set<TEntity>();
     }
 
-    public virtual async Task<IEnumerable<TEntity>> Get(
+    public virtual async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> filter)
+    {
+        return await dbSet.FirstOrDefaultAsync(filter);
+    }
+
+    public virtual async Task<IEnumerable<TEntity>> GetAsync(
         Expression<Func<TEntity, bool>>? filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
         string includeProperties = "")
