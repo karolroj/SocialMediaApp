@@ -1,30 +1,31 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using SocialMediaApp.Core.Database;
+using SocialMediaApp.Core.Interfaces;
 
 namespace SocialMediaApp.Core.Repositories;
-public class GenericRepository<TEntity> where TEntity : class
+public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
-    internal SocialMediaAppContext context;
-    internal DbSet<TEntity> dbSet;
+    protected SocialMediaAppContext context;
+    protected DbSet<T> dbSet;
 
     public GenericRepository(SocialMediaAppContext context)
     {
         this.context = context;
-        dbSet = context.Set<TEntity>();
+        dbSet = context.Set<T>();
     }
 
-    public virtual async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> filter)
+    public virtual async Task<T?> GetAsync(Expression<Func<T, bool>> filter)
     {
         return await dbSet.FirstOrDefaultAsync(filter);
     }
 
-    public virtual async Task<IEnumerable<TEntity>> GetAsync(
-        Expression<Func<TEntity, bool>>? filter = null,
-        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+    public virtual async Task<IEnumerable<T>> GetAsync(
+        Expression<Func<T, bool>>? filter = null,
+        Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
         string includeProperties = "")
     {
-        IQueryable<TEntity> query = dbSet;
+        IQueryable<T> query = dbSet;
 
         if (filter != null)
         {
@@ -47,23 +48,23 @@ public class GenericRepository<TEntity> where TEntity : class
         }
     }
 
-    public virtual async Task<TEntity?> GetByIdAsync(object id)
+    public virtual async Task<T?> GetByIdAsync(int id)
     {
         return await dbSet.FindAsync(id);
     }
 
-    public virtual async Task InsertAsync(TEntity entity)
+    public virtual async Task InsertAsync(T entity)
     {
         await dbSet.AddAsync(entity);
     }
 
-    public virtual async Task DeleteAsync(object id)
+    public virtual async Task DeleteAsync(int id)
     {
-        TEntity? entityToDelete = await dbSet.FindAsync(id);
+        T? entityToDelete = await dbSet.FindAsync(id);
         Delete(entityToDelete);
     }
 
-    public virtual void Delete(TEntity? entityToDelete)
+    public virtual void Delete(T? entityToDelete)
     {
         if (entityToDelete == null)
         {
@@ -77,7 +78,7 @@ public class GenericRepository<TEntity> where TEntity : class
         dbSet.Remove(entityToDelete);
     }
 
-    public virtual void Update(TEntity entityToUpdate)
+    public virtual void Update(T entityToUpdate)
     {
         dbSet.Attach(entityToUpdate);
         context.Entry(entityToUpdate).State = EntityState.Modified;

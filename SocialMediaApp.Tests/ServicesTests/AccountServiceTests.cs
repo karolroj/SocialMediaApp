@@ -7,12 +7,14 @@ namespace SocialMediaApp.Tests.ServicesTests;
 public class AccountServiceTests
 {
     private readonly Mock<ITokenService> _tokenServiceMock;
+    private readonly Mock<IUnitOfWork> _unitOfWorkMock;
     private readonly AccountService _accountService;
 
     public AccountServiceTests()
     {
         _tokenServiceMock = new Mock<ITokenService>();
-        _accountService = new AccountService(_tokenServiceMock.Object);
+        _unitOfWorkMock = new Mock<IUnitOfWork>();
+        _accountService = new AccountService(_tokenServiceMock.Object, _unitOfWorkMock.Object);
     }
 
     [Theory]

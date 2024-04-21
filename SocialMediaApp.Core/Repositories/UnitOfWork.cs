@@ -1,46 +1,24 @@
 using SocialMediaApp.Core.Database;
-using SocialMediaApp.Core.Models;
+using SocialMediaApp.Core.Interfaces;
 
 namespace SocialMediaApp.Core.Repositories;
-public class UnitOfWork : IDisposable
+public class UnitOfWork : IUnitOfWork, IDisposable
 {
-    private SocialMediaAppContext context = new SocialMediaAppContext();
-    private GenericRepository<Account>? accountRepository;
-
-    public GenericRepository<Account> AccountRepository
+    private readonly SocialMediaAppContext _context;
+    public IAccountRepository Accounts { get; private set; }
+    public UnitOfWork(SocialMediaAppContext context)
     {
-        get
-        {
-            if (accountRepository == null)
-            {
-                accountRepository = new GenericRepository<Account>(context);
-            }
-            return accountRepository;
-        }
+        _context = context;
+        Accounts = new AccountRepository(_context);
     }
 
     public async Task SaveAsync()
     {
-        await context.SaveChangesAsync();
-    }
-
-    private bool disposed = false;
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (!disposed)
-        {
-            if (disposing)
-            {
-                context.DisposeAsync();
-            }
-        }
-        disposed = true;
+        await _context.SaveChangesAsync();
     }
 
     public void Dispose()
     {
-        Dispose(true);
-        GC.SuppressFinalize(this);
+        _context.Dispose();
     }
 }

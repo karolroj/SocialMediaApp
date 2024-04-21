@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using SocialMediaApp.Core.Database;
 using SocialMediaApp.Core.Interfaces;
 using SocialMediaApp.Core.Models.AppSettings;
+using SocialMediaApp.Core.Repositories;
 using SocialMediaApp.Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SocialMediaAppContext>();
-builder.Services.AddTransient<IAccountService, AccountService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
 {

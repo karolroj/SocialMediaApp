@@ -1,19 +1,19 @@
 using SocialMediaApp.Core.Contracts;
 using SocialMediaApp.Core.Interfaces;
 using SocialMediaApp.Core.Models;
-using SocialMediaApp.Core.Repositories;
 using SocialMediaApp.Core.Utilities;
 
 namespace SocialMediaApp.Core.Services;
 
 public class AccountService : IAccountService
 {
-    private UnitOfWork _unitOfWork = new UnitOfWork();
+    private readonly IUnitOfWork _unitOfWork; 
     private readonly ITokenService _tokenService;
 
-    public AccountService(ITokenService tokenService)
+    public AccountService(ITokenService tokenService, IUnitOfWork unitOfWork)
     {
         _tokenService = tokenService;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task AddAccountAsync(RegisterRequest request)
@@ -22,13 +22,13 @@ public class AccountService : IAccountService
 
         Account account = new(request.name, request.surname, request.email, securedPassword, salt);
 
-        await _unitOfWork.AccountRepository.InsertAsync(account);
+        await _unitOfWork.Accounts.InsertAsync(account);
         await _unitOfWork.SaveAsync();
     }
 
     public async Task<string?> GetAccountAsync(LoginRequest request)
     {
-        Account? account = await _unitOfWork.AccountRepository.GetAsync(a => a.Email == request.email);
+        Account? account = await _unitOfWork.Accounts.GetAsync(a => a.Email == request.email);
         if (account == null)
             return null;
 
