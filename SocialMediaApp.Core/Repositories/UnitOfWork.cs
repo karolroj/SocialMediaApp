@@ -6,10 +6,13 @@ public class UnitOfWork : IUnitOfWork, IDisposable
 {
     private readonly SocialMediaAppContext _context;
     public IAccountRepository Accounts { get; private set; }
+    public IPostRepository Posts { get; private set; }
+
     public UnitOfWork(SocialMediaAppContext context)
     {
         _context = context;
         Accounts = new AccountRepository(_context);
+        Posts = new PostRepository(_context);
     }
 
     public async Task SaveAsync()
