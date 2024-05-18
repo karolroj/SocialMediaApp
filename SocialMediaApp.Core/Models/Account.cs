@@ -44,4 +44,12 @@ public class Account
     public string Password { get; set; }
     [Required]
     public byte[] Salt { get; set; }
+    public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
+}   
+
+public class AccountExcepiton : Exception
+{
+    public AccountExcepiton(string message) : base(message)
+    {
+    }
 }

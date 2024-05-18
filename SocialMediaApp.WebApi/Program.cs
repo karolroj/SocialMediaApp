@@ -13,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SocialMediaAppContext>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IPostService, PostService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>

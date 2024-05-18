@@ -1,0 +1,8 @@
+POST http://localhost:5000/post
+content-type: application/json
+
+{
+    "title": "title",
+    "content": "content",
+    "accountId": "1"
+}
