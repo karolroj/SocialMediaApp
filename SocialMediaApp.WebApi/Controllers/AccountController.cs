@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using SocialMediaApp.Core.Contracts;
 using SocialMediaApp.Core.Interfaces;
+using SocialMediaApp.Core.Models;
 
 namespace SocialMediaApp.WebApi.Controllers;
 
@@ -21,7 +22,7 @@ public class AccountController : ControllerBase
         try
         {
             if (request.password != request.passwordConfirm)
-                throw new ValidationException("passwords do not match.");
+                throw new ValidationException("Passwords do not match");
 
             await _accountService.AddAccountAsync(request);
 
@@ -29,7 +30,7 @@ public class AccountController : ControllerBase
         }
         catch (Exception ex)
         {
-            if (ex is ValidationException || ex is ArgumentException)
+            if (ex is ValidationException || ex is ArgumentException || ex is AccountExcepiton)
             {
                 return BadRequest(ex.Message);
             }

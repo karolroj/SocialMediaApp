@@ -7,7 +7,7 @@ namespace SocialMediaApp.Core.Services;
 
 public class AccountService : IAccountService
 {
-    private readonly IUnitOfWork _unitOfWork; 
+    private readonly IUnitOfWork _unitOfWork;
     private readonly ITokenService _tokenService;
 
     public AccountService(ITokenService tokenService, IUnitOfWork unitOfWork)
@@ -18,9 +18,14 @@ public class AccountService : IAccountService
 
     public async Task AddAccountAsync(RegisterRequest request)
     {
+        Account? account = await _unitOfWork.Accounts.GetAsync(a => a.Email == request.email);
+
+        if (account != null)
+            throw new AccountExcepiton($"Account with email '{request.email}' already exists");
+
         var securedPassword = PasswordUtilities.HashPasword(request.password, out var salt);
 
-        Account account = new(request.name, request.surname, request.email, securedPassword, salt);
+        account = new(request.name, request.surname, request.email, securedPassword, salt);
 
         await _unitOfWork.Accounts.InsertAsync(account);
         await _unitOfWork.SaveAsync();

@@ -5,17 +5,17 @@ public class Post
     {
         if (string.IsNullOrEmpty(title))
         {
-            throw new ArgumentException($"'{nameof(title)}' cannot be null or empty.", nameof(title));
+            throw new ArgumentException("Title cannot be null or empty");
         }
 
         if (string.IsNullOrEmpty(content))
         {
-            throw new ArgumentException($"'{nameof(content)}' cannot be null or empty.", nameof(content));
+            throw new ArgumentException("Content cannot be null or empty");
         }
 
-        if(accountId == 0)
+        if (accountId == 0)
         {
-            throw new ArgumentException($"'{nameof(accountId)}' cannot be 0.", nameof(accountId));
+            throw new ArgumentException("Account id cannot be 0");
         }
 
         Title = title;

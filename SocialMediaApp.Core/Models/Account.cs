@@ -1,29 +1,31 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace SocialMediaApp.Core.Models;
 
+[Index(nameof(Email), IsUnique = true)]
 public class Account
 {
     public Account(string name, string surname, string email, string password, byte[] salt)
     {
         if (string.IsNullOrEmpty(name))
         {
-            throw new ArgumentException($"'{nameof(name)}' cannot be null or empty.");
+            throw new ArgumentException("Name cannot be null or empty");
         }
 
         if (string.IsNullOrEmpty(surname))
         {
-            throw new ArgumentException($"'{nameof(surname)}' cannot be null or empty.");
+            throw new ArgumentException("Surname cannot be null or empty");
         }
 
         if (string.IsNullOrEmpty(email))
         {
-            throw new ArgumentException($"'{nameof(email)}' cannot be null or empty.");
+            throw new ArgumentException("Email cannot be null or empty");
         }
 
         if (string.IsNullOrEmpty(password))
         {
-            throw new ArgumentException($"'{nameof(password)}' cannot be null or empty.");
+            throw new ArgumentException("Password cannot be null or empty");
         }
 
         Name = name;
