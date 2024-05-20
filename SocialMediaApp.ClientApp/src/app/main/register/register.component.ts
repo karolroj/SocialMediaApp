@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AccountService } from '../../services/account.service';
+import { Register } from '../../interfaces/Register';
+import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-register',
@@ -10,6 +13,8 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validatio
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+  serverResponse: string = "";
+  constructor(private accountService: AccountService) { }
 
   registerForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -57,7 +62,29 @@ export class RegisterComponent {
       this.registerForm.markAllAsTouched();
       return;
     }
-    console.log(this.registerForm.value);
-  }
 
+    let registerRequest: Register = {
+      name: this.name!.value,
+      surname: this.surname!.value,
+      email: this.email!.value,
+      password: this.password!.value,
+      passwordConfirm: this.confirmPassword!.value
+    };
+
+    let modal = new Modal(document.getElementById('registrationModal')!);
+
+    this.accountService.register(registerRequest).subscribe({
+      next: (response: any) => {
+        this.serverResponse = response.message;
+        modal.show();
+      },
+      error: (error) => {
+        this.serverResponse = error.error.message;
+        modal.show();
+      },
+      complete: () => {
+        this.registerForm.reset();
+      }
+    });
+  }
 }

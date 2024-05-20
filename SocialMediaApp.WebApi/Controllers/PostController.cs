@@ -23,10 +23,10 @@ public class PostController : ControllerBase
             var posts = await _postService.GetPostsAsync();
             return Ok(posts);
         }
-        catch 
+        catch
         {
             //log the exception
-            return BadRequest("An error occurred while getting the posts");
+            return BadRequest(new { Message = "An error occurred while getting the posts" });
         }
     }
 
@@ -42,12 +42,12 @@ public class PostController : ControllerBase
         {
             if (ex is PostException || ex is AccountExcepiton)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { ex.Message });
             }
             else
             {
                 //log the exception
-                return BadRequest("An error occurred while getting the post");
+                return BadRequest(new { Message = "An error occurred while getting the post" });
             }
         }
     }
@@ -62,12 +62,12 @@ public class PostController : ControllerBase
         }
         catch (AccountExcepiton ex)
         {
-            return BadRequest(ex.Message);
+            return BadRequest(new { ex.Message });
         }
         catch
         {
             //log the exception
-            return BadRequest("An error occurred while creating the post");
+            return BadRequest(new { Message = "An error occurred while creating the post" });
         }
     }
 
@@ -83,12 +83,12 @@ public class PostController : ControllerBase
         {
             if (ex is PostException || ex is AccountExcepiton)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { ex.Message });
             }
             else
             {
                 //log the exception
-                return BadRequest("An error occurred while updating the post");
+                return BadRequest(new { Message = "An error occurred while updating the post" });
             }
         }
     }
@@ -104,7 +104,7 @@ public class PostController : ControllerBase
         catch
         {
             //log the exception
-            return BadRequest("An error occurred while deleting the post");
+            return BadRequest(new { Message = "An error occurred while deleting the post" });
         }
     }
 }

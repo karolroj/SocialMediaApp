@@ -26,13 +26,13 @@ public class AccountController : ControllerBase
 
             await _accountService.AddAccountAsync(request);
 
-            return Ok();
+            return Ok(new { Message = "Account created successfully" });
         }
         catch (Exception ex)
         {
             if (ex is ValidationException || ex is ArgumentException || ex is AccountExcepiton)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { ex.Message });
             }
             else
             {
