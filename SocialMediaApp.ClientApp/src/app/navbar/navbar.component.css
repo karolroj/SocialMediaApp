@@ -1,15 +1,7 @@
 .navbar {
-    background-color:#D7E3FF;
-    padding: 20px;
-    display: flex;
+    background-color: #D7E3FF !important;
 }
 
 .nav-link {
-    margin: 0 10px;
     color: #055BB2;
-    text-decoration: none;
-}
-
-.nav-login {
-    margin-left: auto;
 }

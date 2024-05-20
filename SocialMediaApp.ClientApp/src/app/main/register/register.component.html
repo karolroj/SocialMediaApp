@@ -1,2 +1,78 @@
-<form>
-</form>
+<div class="card mt-3 mt-lg-5 d-flex flex-lg-row ">
+    <div class="card-body col-lg-5 align-content-center">
+        <img src="assets/images/fill-form.jpg" class="img-fluid " alt="Register yourself" />
+    </div>
+    <div class="card-body">
+        <h3 class="mg-2 mt-lg-4 card-title">Register yourself</h3>
+        <p class="card-text">It is easy and fast</p>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="mt-2 mt-lg-4">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="bi bi-person"></i>
+                    </span>
+                    <input class="form-control" formControlName="name" />
+                </div>
+                <div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="text-danger">
+                    <div *ngIf="name?.errors?.['required']">Name is required.</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Surname</label>
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="bi bi-person-fill"></i>
+                    </span>
+                    <input class="form-control" formControlName="surname" />
+                </div>
+                <div *ngIf="surname?.invalid && (surname?.dirty || surname?.touched)" class="text-danger">
+                    <div *ngIf="surname?.errors?.['required']">Surname is required.</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Adres e-mail</label>
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="bi bi-envelope"></i>
+                    </span>
+                    <input type="email" class="form-control" formControlName="email" />
+                </div>
+                <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="text-danger">
+                    <div *ngIf="email?.errors?.['required']">Email address is required.</div>
+                    <div *ngIf="email?.errors?.['email']">Enter proper email address.</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="bi bi-unlock"></i>
+                    </span>
+                    <input type="password" class="form-control" formControlName="password">
+                </div>
+                <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
+                    <div *ngIf="password?.errors?.['required']">Password is required.</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Confirm password</label>
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="bi bi-unlock-fill"></i>
+                    </span>
+                    <input type="password" class="form-control" formControlName="confirmPassword">
+                </div>
+                <div *ngIf="confirmPassword?.invalid && (confirmPassword?.dirty || confirmPassword?.touched)"
+                    class="text-danger">
+                    <div *ngIf="confirmPassword?.errors?.['required']">Password confirmation is required.</div>
+                    <div *ngIf="confirmPassword?.errors?.['passwordMatch']">Passwords do not match</div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-check-all"></i>
+                Register
+            </button>
+        </form>
+    </div>
+</div>
