@@ -2,20 +2,22 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AccountService } from '../../services/account.service';
-import { Register } from '../../interfaces/Register';
+import { RegisterRequest } from '../../interfaces/RegisterRequest';
 import { Modal } from 'bootstrap';
+import { StaticModalComponent } from '../../modals/static-modal/static-modal.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, StaticModalComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  serverResponse: string = "";
   constructor(private accountService: AccountService) { }
 
+  serverResponse: string = "";
+  
   registerForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     surname: new FormControl('', Validators.required),
@@ -63,7 +65,7 @@ export class RegisterComponent {
       return;
     }
 
-    let registerRequest: Register = {
+    let registerRequest: RegisterRequest = {
       name: this.name!.value,
       surname: this.surname!.value,
       email: this.email!.value,
@@ -71,7 +73,7 @@ export class RegisterComponent {
       passwordConfirm: this.confirmPassword!.value
     };
 
-    let modal = new Modal(document.getElementById('registrationModal')!);
+    let modal = new Modal(document.getElementById('staticModal')!);
 
     this.accountService.register(registerRequest).subscribe({
       next: (response: any) => {

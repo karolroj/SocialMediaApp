@@ -52,7 +52,7 @@ public class AccountController : ControllerBase
             if (string.IsNullOrEmpty(token))
                 return Unauthorized();
 
-            return Ok(token);
+            return Ok(new { token });
         }
         catch
         {

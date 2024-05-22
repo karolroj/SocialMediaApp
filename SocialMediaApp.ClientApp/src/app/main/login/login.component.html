@@ -1,1 +1,44 @@
-<p>login works!</p>
+<div class="d-flex flex-column flex-lg-row mt-3 mt-lg-5 justify-content-center align-items-center mb-sm-5">
+    <div class="mt-3 col-lg-3 mt-lg-0">
+        <h3>Social Media App</h3>
+        <p>Social Media App helps communicate with other people, share information and material</p>
+    </div>
+    <div class="card col-12 col-md-11 mt-3 offset-lg-1 col-lg-4">
+        <div class="card-body">
+            <h3 class="mg-2 mt-lg-4 card-title">Log into app</h3>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mt-2 mt-lg-4">
+                <div class="mb-3">
+                    <label class="form-label">Adres e-mail</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-envelope"></i>
+                        </span>
+                        <input type="email" class="form-control" formControlName="email" />
+                    </div>
+                    <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="text-danger">
+                        <div *ngIf="email?.errors?.['required']">Email address is required.</div>
+                        <div *ngIf="email?.errors?.['email']">Enter proper email address.</div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-unlock"></i>
+                        </span>
+                        <input type="password" class="form-control" formControlName="password">
+                    </div>
+                    <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="text-danger">
+                        <div *ngIf="password?.errors?.['required']">Password is required.</div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-all"></i>
+                    Login
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<app-static-modal [title]="'Login'" [content]="serverResponse"></app-static-modal>
